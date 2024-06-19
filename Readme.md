@@ -9,7 +9,7 @@
 ## Live Demo
 
 - **Frontend Live Hosted**: [git.nisargpatel.studio](https://git.nisargpatel.studio/) / [controlgit.vercel.app/](https://controlgit.vercel.app/)
-- **Frontend Repo**: [https://github.com/ptlnisarg31/commit.it](https://github.com/ptlnisarg31/commit.it)
+- **Frontend Repo**: [https://github.com/ptlnisarg31/ControlGit-Web-Client-UI](https://github.com/ptlnisarg31/ControlGit-Web-Client-UI)
 
 ## Overview
 This project is a web-based application that interacts with a backend server to fetch and display GitHub user profiles, repository information, and manage file changes. It provides functionalities such as adding files, committing changes, and pushing changes to a repository.
