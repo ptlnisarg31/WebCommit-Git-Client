@@ -8,7 +8,7 @@
 
 ## Live Demo
 
-- **Frontend Live Hosted**: [git.nisargpatel.studio](https://git.nisargpatel.studio/) / [commit-it.vercel.app](https://commit-it.vercel.app/)
+- **Frontend Live Hosted**: [git.nisargpatel.studio](https://git.nisargpatel.studio/) / [controlgit.vercel.app/](https://controlgit.vercel.app/)
 - **Frontend Repo**: [https://github.com/ptlnisarg31/commit.it](https://github.com/ptlnisarg31/commit.it)
 
 ## Overview
