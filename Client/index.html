@@ -12,6 +12,25 @@
 
 <body>
     <div class="container">
+          <!-- Notification Alerts -->
+          <div id="notification">
+            <!-- Success Notification -->
+            <div id="successNotification" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                <span>Success: Your commit was successful!</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Error Notification -->
+            <div id="errorNotification" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <span>Error: Failed to commit. Please try again.</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+
         <h1 class="text-center mt-4 text-dark font-weight-bold mb-4">
             Commit.io | Git Commit Web Client
         </h1>
@@ -106,24 +125,7 @@
         <div id="result" class="card bg-white rounded-lg shadow-sm p-4 mb-4"></div>
     </div>
 
-    <!-- Notification Alerts -->
-    <div id="notification">
-        <!-- Success Notification -->
-        <div id="successNotification" class="alert alert-success alert-dismissible fade show d-none" role="alert">
-            Success: Your commit was successful!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-
-        <!-- Error Notification -->
-        <div id="errorNotification" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-            Error: Failed to commit. Please try again.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
+   
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>

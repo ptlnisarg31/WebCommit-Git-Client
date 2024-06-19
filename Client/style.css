@@ -1,111 +1,175 @@
-/* Global styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Custom styles for specific components */
-.input-field {
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #cbd5e0;
-    border-radius: 6px;
-    transition: border-color 0.3s ease;
-    width: 100%;
-}
-
-.input-field:focus {
-    outline: none;
-    border-color: #4CAF50;
-}
-
-.small-button {
-    padding: 10px;
-    font-size: 14px;
-    margin-left: 10px;
-}
-
+/* Styling for the main container */
 .container {
     max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Button styles */
-.btn {
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-black {
-    background-color: #333;
-    color: #fff;
-}
-
-.btn-black:hover {
-    background-color: #444;
-}
-
-.btn-green {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.btn-green:hover {
-    background-color: #45a049;
-}
-
-.btn-blue {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.btn-blue:hover {
-    background-color: #0056b3;
-}
-
-/* Notification styles */
-#notification {
-    z-index: 9999; /* Ensure notifications appear on top */
-}
-
-#successNotification {
-    background-color: #4CAF50;
-    color: #000; /* Change text color to black */
-}
-
-#errorNotification {
-    background-color: #FF6347;
-    color: #000; /* Change text color to black */
-}
-body {
-    background-color: #f8f9fa; /* Light gray background */
-    padding-top: 20px;
-}
-.card {
-    margin-bottom: 20px; /* Spacing between cards */
-}
-.text-gray-800 {
-    color: #343a40 !important; /* Dark gray text */
-}
-.btn-outline-dark {
+/* Styling for the main title */
+h1 {
+    font-size: 2.5rem;
     color: #343a40;
-    border-color: #343a40;
+    font-weight: 700;
 }
-.btn-outline-dark:hover {
-    color: #fff;
+
+/* Card component styling */
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for form elements */
+.form-group label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.form-group input,
+.form-group button {
+    border-radius: 0.25rem;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+/* Button styling */
+.btn {
+    border-radius: 0.25rem;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-dark {
     background-color: #343a40;
-    border-color: #343a40;
+    border: none;
 }
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+/* Notification container styling */
+#notification {
+    position: fixed; /* Fix the position on the screen */
+    top: 20px; /* Position from the top of the viewport */
+    right: 20px; /* Position from the right of the viewport */
+    width: auto; /* Automatically adjust the width */
+    max-width: 300px; /* Maximum width for the container */
+    z-index: 9999; /* Ensure notifications appear on top */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack notifications vertically */
+    gap: 10px; /* Space between notifications */
+}
+
+/* Success notification styling */
+#successNotification {
+    background-color: #4CAF50; /* Green background for success */
+    color: #000; /* Black text color */
+    padding: 15px; /* Padding inside the alert */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: none; /* Initially hidden */
+}
+
+/* Error notification styling */
+#errorNotification {
+    background-color: #FF6347; /* Tomato background for error */
+    color: #000; /* Black text color */
+    padding: 15px; /* Padding inside the alert */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: none; /* Initially hidden */
+}
+
+/* General alert styling */
 .alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    max-width: 350px;
+    margin: 0; /* Remove default margin */
+    position: relative; /* Positioning context for close button */
+}
+
+/* Close button positioning */
+.alert-dismissible .close {
+    position: absolute; /* Absolute positioning */
+    top: 5px; /* Position close to the top */
+    right: 10px; /* Position close to the right */
+    color: inherit; /* Inherit color from parent */
+}
+
+/* Hidden class to toggle visibility */
+.d-none {
+    display: none !important; /* Force hiding the element */
+}
+
+/* Profile picture styling */
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Text color adjustments */
+.text-gray-800 {
+    color: #343a40 !important;
+}
+
+.text-dark {
+    color: #343a40 !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+/* Styling for the datetime picker component */
+#datetimePicker {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    font-size: 1rem;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .form-group input,
+    .form-group button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
