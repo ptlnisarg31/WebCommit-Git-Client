@@ -15,21 +15,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
-    // Check if backend URL is already stored in session storage
-    let backendApiUrl = sessionStorage.getItem("backendApiUrl");
-    
-    if (!backendApiUrl) {
-        // Attempt to use default backend URL
-        backendApiUrl = "http://localhost:3100";
-        fetch(backendApiUrl, { method: 'HEAD' })
-            .then(() => {
+    // Function to fetch backend URL and set sessionStorage if needed
+    async function fetchBackendUrl() {
+        let backendApiUrl = sessionStorage.getItem("backendApiUrl");
+        
+        if (!backendApiUrl) {
+            backendApiUrl = "http://localhost:3100";
+            
+            try {
+                await fetch(backendApiUrl, { method: 'HEAD' });
                 sessionStorage.setItem("backendApiUrl", backendApiUrl);
-            })
-            .catch(() => {
-                // If default backend URL is not reachable, show popup to get backend URL and store it
+            } catch (error) {
+                console.error("Default backend URL not reachable:", error);
                 backendApiUrl = showBackendUrlPopup();
-            });
+            }
+        }
+        
+        return backendApiUrl;
     }
+    
+    // Usage example:
+    fetchBackendUrl()
+        .then(backendUrl => {
+            console.log("Backend API URL:", backendUrl);
+            // Further actions with the backend URL
+        })
+        .catch(error => {
+            console.error("Error fetching backend URL:", error);
+            // Handle error appropriately
+        });
+    
     
     // Function to show success notification
     function showSuccessNotification(message) {
@@ -309,31 +324,17 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
     fetchLastCommitDate();
 
     // Disconnect Button Event Listener
-document.getElementById('disconnectButton').addEventListener('click', async function() {
-    // Call the backend to destroy the session
-    try {
-        sessionStorage.clear();
-        showBackendUrlPopup();
-        window.location.reload();
-
-        // const response = await fetch(backendApiUrl+"/disconnect", {
-        //     method: 'POST',
-        // });
-
-        // if (response.ok) {
-        //     // Successfully disconnected
-        //     alert('Successfully disconnected.');
-        //     // Optionally, clear the UI or redirect the user to a login page
-        //     location.reload(); // Refresh the page to reset the UI
-        // } else {
-        //     // Handle errors
-        //     alert('Failed to disconnect. Please try again.');
-        // }
-    } catch (error) {
-        console.error('Error during disconnect:', error);
-        alert('An error occurred. Please try again.');
-    }
-});
+    document.getElementById('disconnectButton').addEventListener('click', async function() {
+        try {
+            sessionStorage.clear();
+            showBackendUrlPopup();
+            window.location.reload();
+        } catch (error) {
+            console.error('Error during disconnect:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+    
 
 
 flatpickr("#commitDate", {
