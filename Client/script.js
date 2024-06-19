@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const successNotification = document.getElementById('successNotification');
     const errorNotification = document.getElementById('errorNotification');
     const resultSection = document.getElementById('result'); // Get result section
-
+    
     function showBackendUrlPopup() {
-        const backendUrl = prompt("Please enter the backend URL:");
+        const defaultBackendUrl = "http://localhost:3100";
+        const backendUrl = prompt("Please enter the backend URL:", defaultBackendUrl);
         if (backendUrl) {
             sessionStorage.setItem("backendApiUrl", backendUrl);
             return backendUrl;
@@ -13,13 +14,21 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
     }
-
-    // Check if backend URL is already stored in local storage
+    
+    // Check if backend URL is already stored in session storage
     let backendApiUrl = sessionStorage.getItem("backendApiUrl");
-
+    
     if (!backendApiUrl) {
-        // If not stored, show popup to get backend URL and store it
-        backendApiUrl = showBackendUrlPopup();
+        // Attempt to use default backend URL
+        backendApiUrl = "http://localhost:3100";
+        fetch(backendApiUrl, { method: 'HEAD' })
+            .then(() => {
+                sessionStorage.setItem("backendApiUrl", backendApiUrl);
+            })
+            .catch(() => {
+                // If default backend URL is not reachable, show popup to get backend URL and store it
+                backendApiUrl = showBackendUrlPopup();
+            });
     }
     
     // Function to show success notification
