@@ -1,4 +1,4 @@
-##  Commit.it Client - Frontend | Git Commit web client 
+##  ControlGit Client - Frontend | Git Commit web client 
 
 <p align="center">
   <img src="interface/webclient.png" alt="Git Commit Tool">
