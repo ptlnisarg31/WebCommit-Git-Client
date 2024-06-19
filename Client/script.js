@@ -299,6 +299,33 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
     }
     fetchLastCommitDate();
 
+    // Disconnect Button Event Listener
+document.getElementById('disconnectButton').addEventListener('click', async function() {
+    // Call the backend to destroy the session
+    try {
+        sessionStorage.clear();
+        showBackendUrlPopup();
+        window.location.reload();
+
+        // const response = await fetch(backendApiUrl+"/disconnect", {
+        //     method: 'POST',
+        // });
+
+        // if (response.ok) {
+        //     // Successfully disconnected
+        //     alert('Successfully disconnected.');
+        //     // Optionally, clear the UI or redirect the user to a login page
+        //     location.reload(); // Refresh the page to reset the UI
+        // } else {
+        //     // Handle errors
+        //     alert('Failed to disconnect. Please try again.');
+        // }
+    } catch (error) {
+        console.error('Error during disconnect:', error);
+        alert('An error occurred. Please try again.');
+    }
+});
+
 
 flatpickr("#commitDate", {
     enableTime: true,
