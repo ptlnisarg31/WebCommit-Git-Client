@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git Commit Tool - tool by Nisarg Patel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="style.css" type="style/css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4 text-dark font-weight-bold mb-4">
+            Commit.io | Git Commit Web Client
+        </h1>
+
+        <!-- GitHub Profile and Repository Display -->
+        <div class="card mb-4">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <!-- GitHub Profile Information -->
+                <div class="d-flex align-items-center">
+                    <img id="githubAvatar" class="profile-pic rounded-circle mr-2" alt="Profile Picture"
+                        style="display: none; width: 50px; height: 50px" />
+                    <div id="githubUsername" class="font-weight-bold text-gray-800">
+                        Loading GitHub User...
+                    </div>
+                </div>
+
+                <!-- GitHub Repository Link -->
+                <div id="githubRepo" class="text-right font-weight-bold text-gray-800">
+                    Loading GitHub Repository...
+                </div>
+            </div>
+        </div>
+
+        <!-- Changed Files Selection -->
+        <div id="changedFilesContainer" class="card mb-4">
+            <div class="card-body">
+                <h2 class="font-weight-bold mb-4 text-gray-800">
+                    Select Files to Add
+                </h2>
+                <div id="changedFilesList">Loading changed files...</div>
+                <div class="text-right mt-3">
+                    <button id="selectAllButton" class="btn btn-success">
+                        Select All
+                    </button>
+                    <button id="uncheckAllButton" class="btn btn-danger ml-2">
+                        Uncheck All
+                    </button>
+                    <button id="addSelectedFilesButton" class="btn btn-dark ml-2">
+                        Add Selected Files
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commit Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="commitForm">
+                    <div class="form-group">
+                        <label for="commitMessage" class="font-weight-bold text-gray-800">Commit Message:</label>
+                        <input type="text" id="commitMessage" name="commitMessage" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="commitDate" class="font-weight-bold text-gray-800">Commit Date (YYYY-MM-DD HH:MM:SS)
+                            :
+                        </label>
+                        <button type="button" id="nowButton" class="btn btn-warning btn-sm">
+                            Fetch Current Time
+                        </button>
+                        <button type="button" id="fetchLastCommitTime" class="btn btn-warning btn-sm">
+                            Fetch Last Commit
+                        </button><br>
+                        <!-- Display Last Commit Date -->
+                        
+
+                        <br />
+                        <div class="input-group">
+                            <input type="text" id="commitDate" name="commitDate" class="form-control"
+                                placeholder="YYYY-MM-DD HH:MM:SS" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="datetimePicker"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Commit</button>
+                        <button type="button" id="pushButton" class="btn btn-success ml-2">
+                            Push
+                        </button>
+                    </div>
+                    Last Commit : <div id="lastCommitDate" class="font-semibold text-gray-800 mb-2">
+                        Loading last commit date...
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="result" class="card bg-white rounded-lg shadow-sm p-4 mb-4"></div>
+    </div>
+
+    <!-- Notification Alerts -->
+    <div id="notification">
+        <!-- Success Notification -->
+        <div id="successNotification" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+            Success: Your commit was successful!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <!-- Error Notification -->
+        <div id="errorNotification" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+            Error: Failed to commit. Please try again.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

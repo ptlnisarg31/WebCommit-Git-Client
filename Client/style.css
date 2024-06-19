@@ -1,0 +1,111 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Custom styles for specific components */
+.input-field {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.small-button {
+    padding: 10px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.container {
+    max-width: 800px;
+}
+
+/* Button styles */
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-black {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-black:hover {
+    background-color: #444;
+}
+
+.btn-green {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.btn-green:hover {
+    background-color: #45a049;
+}
+
+.btn-blue {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-blue:hover {
+    background-color: #0056b3;
+}
+
+/* Notification styles */
+#notification {
+    z-index: 9999; /* Ensure notifications appear on top */
+}
+
+#successNotification {
+    background-color: #4CAF50;
+    color: #000; /* Change text color to black */
+}
+
+#errorNotification {
+    background-color: #FF6347;
+    color: #000; /* Change text color to black */
+}
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    padding-top: 20px;
+}
+.card {
+    margin-bottom: 20px; /* Spacing between cards */
+}
+.text-gray-800 {
+    color: #343a40 !important; /* Dark gray text */
+}
+.btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+}
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 350px;
+}
