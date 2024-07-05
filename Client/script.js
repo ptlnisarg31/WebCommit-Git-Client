@@ -15,36 +15,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
-    // Function to fetch backend URL and set sessionStorage if needed
-    async function fetchBackendUrl() {
-        let backendApiUrl = sessionStorage.getItem("backendApiUrl");
-        
-        if (!backendApiUrl) {
-            backendApiUrl = "http://localhost:3100";
-            
-            try {
-                await fetch(backendApiUrl, { method: 'HEAD' });
+    // Check if backend URL is already stored in session storage
+    let backendApiUrl = sessionStorage.getItem("backendApiUrl");
+    
+    if (!backendApiUrl) {
+        // Attempt to use default backend URL
+        backendApiUrl = "http://localhost:3100";
+        fetch(backendApiUrl, { method: 'HEAD' })
+            .then(() => {
                 sessionStorage.setItem("backendApiUrl", backendApiUrl);
-            } catch (error) {
-                console.error("Default backend URL not reachable:", error);
+            })
+            .catch(() => {
+                // If default backend URL is not reachable, show popup to get backend URL and store it
                 backendApiUrl = showBackendUrlPopup();
-            }
-        }
-        
-        return backendApiUrl;
+            });
     }
-    
-    // Usage example:
-    fetchBackendUrl()
-        .then(backendUrl => {
-            console.log("Backend API URL:", backendUrl);
-            // Further actions with the backend URL
-        })
-        .catch(error => {
-            console.error("Error fetching backend URL:", error);
-            // Handle error appropriately
-        });
-    
     
     // Function to show success notification
     function showSuccessNotification(message) {
