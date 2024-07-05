@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const successNotification = document.getElementById('successNotification');
     const errorNotification = document.getElementById('errorNotification');
     const resultSection = document.getElementById('result'); // Get result section
-    
+
     function showBackendUrlPopup() {
         const defaultBackendUrl = "http://localhost:3100";
         const backendUrl = prompt("Please enter the backend URL:", defaultBackendUrl);
@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
     }
-    
+
     // Check if backend URL is already stored in session storage
     let backendApiUrl = sessionStorage.getItem("backendApiUrl");
-    
+
     if (!backendApiUrl) {
         // Attempt to use default backend URL
         backendApiUrl = "http://localhost:3100";
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 backendApiUrl = showBackendUrlPopup();
             });
     }
-    
+
     // Function to show success notification
     function showSuccessNotification(message) {
         successNotification.textContent = message;
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch GitHub user profile and display it
-    fetch(backendApiUrl+"/github-profile")
+    fetch(backendApiUrl + "/github-profile")
         .then(response => response.json())
         .then(data => {
             const usernameElement = document.getElementById("githubUsername");
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Fetch GitHub repository info and display it
-    fetch(backendApiUrl+"/github-repo")
+    fetch(backendApiUrl + "/github-repo")
         .then(response => response.json())
         .then(data => {
             const repoElement = document.getElementById("githubRepo");
@@ -102,9 +102,33 @@ document.addEventListener("DOMContentLoaded", function () {
             repoElement.innerText = "Failed to load GitHub repository";
         });
 
+    // Event listener for Pull Changes button
+    document.getElementById("pullButton").addEventListener("click", async function () {
+        try {
+            const response = await fetch(backendApiUrl + "/pull", {
+                method: "GET",
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                showSuccessNotification(result.message || "Changes pulled successfully!");
+                updateResultSection(result.message || "", true);
+                fetchLastCommitDate(); // Update last commit date after pulling changes
+                fetchAndDisplayChangedFiles(); // Refresh changed files list
+            } else {
+                showErrorNotification(result.error || "Failed to pull changes.");
+                updateResultSection(result.error || "", false);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            showErrorNotification("Failed to pull changes.");
+            updateResultSection("Failed to pull changes.", false);
+        }
+    });
+
     // Function to fetch and display changed files
     function fetchAndDisplayChangedFiles() {
-        fetch(backendApiUrl+"/changed-files")
+        fetch(backendApiUrl + "/changed-files")
             .then(response => response.json())
             .then(data => {
                 const changedFilesList = document.getElementById("changedFilesList");
@@ -118,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
                         `;
                     }).join('');
-    
+
                     changedFilesList.innerHTML = filesHTML;
                 } else {
                     changedFilesList.innerHTML = "No changed files found.";
@@ -131,11 +155,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-// Initial call to fetch and display changed files
-fetchAndDisplayChangedFiles();
+    // Initial call to fetch and display changed files
+    fetchAndDisplayChangedFiles();
 
-// Example of calling the function periodically every 30 seconds
-setInterval(fetchAndDisplayChangedFiles, 30000);
+    // Example of calling the function periodically every 30 seconds
+    setInterval(fetchAndDisplayChangedFiles, 30000);
     // Add event listener for adding selected files
     document.getElementById("addSelectedFilesButton").addEventListener("click", async function () {
         const selectedFiles = Array.from(document.querySelectorAll('#changedFilesList input:checked'))
@@ -143,22 +167,22 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
                 filePath: checkbox.getAttribute("data-file"),
                 isDirectory: checkbox.hasAttribute("data-is-directory")
             }));
-    
+
         if (selectedFiles.length === 0) {
             alert("Please select at least one file or directory to add.");
             return;
         }
-    
+
         try {
             // Send selected files and directories to the backend
-            const response = await fetch(backendApiUrl+"/add-files", {
+            const response = await fetch(backendApiUrl + "/add-files", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ files: selectedFiles }),
             });
-    
+
             const result = await response.json();
             if (response.ok) {
                 showSuccessNotification(result.message || "Files and directories added successfully!");
@@ -173,7 +197,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
             updateResultSection("Failed to add files and directories.", false); // Update result section with error
         }
     });
-    
+
 
     // Select All button functionality
     document.getElementById("selectAllButton").addEventListener("click", function () {
@@ -196,10 +220,10 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
         document.getElementById("commitDate").value = formattedDate;
     });
     // Event listener to set current date and time when "Now" button is clicked
-    document.getElementById("fetchLastCommitTime").addEventListener("click",async function () {
+    document.getElementById("fetchLastCommitTime").addEventListener("click", async function () {
         try {
             // Fetch the last commit date from the server
-            const response = await fetch(backendApiUrl+"/last-commit-date");
+            const response = await fetch(backendApiUrl + "/last-commit-date");
             const result = await response.json();
 
             if (response.ok) {
@@ -233,7 +257,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
         const commitDate = document.getElementById("commitDate").value;
 
         try {
-            const response = await fetch(backendApiUrl+"/commit", {
+            const response = await fetch(backendApiUrl + "/commit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -247,7 +271,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
             const result = await response.json();
             if (response.ok) {
                 showSuccessNotification(result.message || "Commit created successfully!");
-                updateResultSection(result.message+" Output :  "+result.output || "", true); // Update result section with success
+                updateResultSection(result.message + " Output :  " + result.output || "", true); // Update result section with success
             } else {
                 showErrorNotification(result.error || "Failed to create commit.");
                 updateResultSection(result.error || "", false); // Update result section with error
@@ -262,7 +286,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
     // Handle push button click
     document.getElementById("pushButton").addEventListener("click", async function () {
         try {
-            const response = await fetch(backendApiUrl+"/push", {
+            const response = await fetch(backendApiUrl + "/push", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -273,7 +297,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
             const result = await response.json();
             if (response.ok) {
                 showSuccessNotification(result.message || "Changes pushed successfully!");
-                updateResultSection(result.message || "", true); 
+                updateResultSection(result.message || "", true);
                 fetchLastCommitDate();// Update result section with success
                 fetchAndDisplayChangedFiles();
             } else {
@@ -289,7 +313,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
 
     // Function to fetch and display last commit date
     function fetchLastCommitDate() {
-        fetch(backendApiUrl+"/last-commit-date")
+        fetch(backendApiUrl + "/last-commit-date")
             .then(response => response.json())
             .then(data => {
                 const lastCommitDateElement = document.getElementById("lastCommitDate");
@@ -309,7 +333,7 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
     fetchLastCommitDate();
 
     // Disconnect Button Event Listener
-    document.getElementById('disconnectButton').addEventListener('click', async function() {
+    document.getElementById('disconnectButton').addEventListener('click', async function () {
         try {
             sessionStorage.clear();
             showBackendUrlPopup();
@@ -319,15 +343,15 @@ setInterval(fetchAndDisplayChangedFiles, 30000);
             alert('An error occurred. Please try again.');
         }
     });
-    
 
 
-flatpickr("#commitDate", {
-    enableTime: true,
-    dateFormat: "Y-m-d H:i:S",
-    time_24hr: true,
-    inline: false,
-    allowInput: true, // Allow manual input
-});
+
+    flatpickr("#commitDate", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i:S",
+        time_24hr: true,
+        inline: false,
+        allowInput: true, // Allow manual input
+    });
 
 });
