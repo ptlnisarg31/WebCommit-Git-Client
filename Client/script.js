@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Event listener for Pull Changes button
-    document.getElementById("pullButton").addEventListener("button", async function () {
+    document.getElementById("pullButton").addEventListener("click", async function () {
         try {
             const response = await fetch(backendApiUrl + "/pull", {
                 method: "GET",
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
             if (response.ok) {
                 showSuccessNotification(result.message || "Changes pulled successfully!");
-                updateResultSection(result.message || "", true);
+                updateResultSection(result.pullSummary || "", true); // Assuming pullSummary is the key in backend response
                 // fetchLastCommitDate(); // Update last commit date after pulling changes
                 // fetchAndDisplayChangedFiles(); // Refresh changed files list
             } else {
