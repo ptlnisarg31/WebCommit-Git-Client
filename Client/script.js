@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Event listener for Pull Changes button
-    document.getElementById("pullButton").addEventListener("click", async function () {
+    document.getElementById("pullButton").addEventListener("button", async function () {
         try {
             const response = await fetch(backendApiUrl + "/pull", {
                 method: "GET",
@@ -113,8 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 showSuccessNotification(result.message || "Changes pulled successfully!");
                 updateResultSection(result.message || "", true);
-                fetchLastCommitDate(); // Update last commit date after pulling changes
-                fetchAndDisplayChangedFiles(); // Refresh changed files list
+                // fetchLastCommitDate(); // Update last commit date after pulling changes
+                // fetchAndDisplayChangedFiles(); // Refresh changed files list
             } else {
                 showErrorNotification(result.error || "Failed to pull changes.");
                 updateResultSection(result.error || "", false);
